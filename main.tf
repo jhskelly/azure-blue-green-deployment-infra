@@ -14,7 +14,7 @@ resource "azurerm_service_plan" "blue-green-service-plan" {
   location            = azurerm_resource_group.blue-green-rg.location
   resource_group_name = azurerm_resource_group.blue-green-rg.name
   os_type             = "Linux"
-  sku_name            = "B1"
+  sku_name            = "S1"
 }
 
 resource "azurerm_linux_web_app" "blue-green-service" {
@@ -23,7 +23,10 @@ resource "azurerm_linux_web_app" "blue-green-service" {
   location            = azurerm_service_plan.blue-green-service-plan.location
   service_plan_id     = azurerm_service_plan.blue-green-service-plan.id
 
-  site_config {}
+
+  site_config {
+    health_check_path   = "/actuator/health"
+  }
 }
 
 resource "azurerm_linux_web_app_slot" "blue-green-staging-slot" {
