@@ -4,10 +4,11 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "blue-green-rg" {
   name     = "blue-green-rg"
-  location = "UK South"
+  location = "UK West"
 }
 
-
+# SKU.","Target":null,"Details":[{"Message":"Cannot complete the operation because the site will exceed the number of slots allowed for the 'Basic'
+#sku_name= "B1"
 resource "azurerm_service_plan" "blue-green-service-plan" {
   name                = "blue-green-appservice-plan"
   location            = azurerm_resource_group.blue-green-rg.location
@@ -27,13 +28,6 @@ resource "azurerm_linux_web_app" "blue-green-service" {
 
 resource "azurerm_linux_web_app_slot" "blue-green-staging-slot" {
   name                = "staging"
-  app_service_id      = azurerm_linux_web_app.blue-green-service.id
-  site_config {}
-}
-
-# NOTE I wouldn't call this a prod slot
-resource "azurerm_linux_web_app_slot" "blue-green-prod-slot" {
-  name                = "production"
   app_service_id      = azurerm_linux_web_app.blue-green-service.id
   site_config {}
 }
