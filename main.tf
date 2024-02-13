@@ -23,14 +23,25 @@ resource "azurerm_linux_web_app" "blue-green-service" {
   location            = azurerm_service_plan.blue-green-service-plan.location
   service_plan_id     = azurerm_service_plan.blue-green-service-plan.id
 
-
+  #  TODO: Test this
   site_config {
     health_check_path   = "/actuator/health"
+    application_stack {
+      java_server = "JAVA"
+      java_version = "17"
+    }
   }
 }
 
 resource "azurerm_linux_web_app_slot" "blue-green-staging-slot" {
   name                = "staging"
   app_service_id      = azurerm_linux_web_app.blue-green-service.id
-  site_config {}
+  site_config {
+    health_check_path   = "/actuator/health"
+    application_stack {
+      java_server = "JAVA"
+      java_version = "17"
+    }
+  }
+
 }
