@@ -23,7 +23,6 @@ resource "azurerm_linux_web_app" "blue-green-service" {
   location            = azurerm_service_plan.blue-green-service-plan.location
   service_plan_id     = azurerm_service_plan.blue-green-service-plan.id
 
-  #  TODO: Test this
   site_config {
     health_check_path   = "/actuator/health"
     application_stack {
