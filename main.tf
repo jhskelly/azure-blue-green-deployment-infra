@@ -29,6 +29,7 @@ resource "azurerm_linux_web_app" "blue-green-service" {
     application_stack {
       java_server = "JAVA"
       java_version = "17"
+      java_server_version = "17"
     }
   }
 }
@@ -41,6 +42,7 @@ resource "azurerm_linux_web_app_slot" "blue-green-staging-slot" {
     application_stack {
       java_server = "JAVA"
       java_version = "17"
+      java_server_version = "17"
     }
   }
 
