@@ -7,4 +7,4 @@ brew install terraform
 
 ## Running the application
 terraform apply -auto-approve
-terraform destroy
+terraform destroy -auto-approve
